@@ -26,7 +26,7 @@ class Dipi_Woocommerce_Update
 
             if ( ! is_wp_error( $remote ) && isset( $remote['response']['code'] ) && $remote['response']['code'] == 200 ) {
                 $remote = json_decode( $remote['body'] );
-                if ( $remote && version_compare( ADVIRAL_WOOCOMMERCE_VERSION, $remote->version, '<' ) && version_compare( $remote->requires, get_bloginfo( 'version' ), '<' ) ) {
+                if ( $remote && version_compare( DIPI_WOOCOMMERCE_VERSION, $remote->version, '<' ) && version_compare( $remote->requires, get_bloginfo( 'version' ), '<' ) ) {
                     $plugin = 'dipi-woocommerce/dipi-woocommerce.php';
                     $transient->response[$plugin] = (object) array(
                         'slug' => 'dipi-woocommerce',
@@ -75,8 +75,8 @@ class Dipi_Woocommerce_Update
                 'version' => $remote->version,
                 'tested' => $remote->tested,
                 'requires' => $remote->requires,
-                'author' => '<a href="https://dipi.media">Dipi AB</a>',
-                'author_profile' => 'https://dipi.media',
+                'author' => '<a href="https://dipi.io">Dipi AB</a>',
+                'author_profile' => 'https://dipi.io',
                 'download_link' => $remote->package,
                 'trunk' => $remote->package,
                 'last_updated' => $remote->last_updated,
