@@ -1,0 +1,10 @@
+.dipi-woocommerce input[type=text],
+.dipi-woocommerce input[type=number],
+.dipi-woocommerce select {
+    min-width: 400px;
+}
+.dipi-woocommerce .help-text {
+    color: #777;
+    font-size: 11px;
+    padding: 5px;
+}
