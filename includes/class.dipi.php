@@ -55,7 +55,7 @@ class Dipi_Woocommerce
     {
         $public = new Dipi_Woocommerce_Public;
 
-        $this->loader->add_action( 'wp_body_open', $public, 'woocommerce_page_view' );
+        $this->loader->add_action( 'wp_footer', $public, 'woocommerce_page_view' );
         $this->loader->add_action( 'woocommerce_thankyou', $public, 'woocommerce_thankyou' );
     }
 
