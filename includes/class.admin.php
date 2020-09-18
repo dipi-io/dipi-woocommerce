@@ -36,6 +36,7 @@ class Dipi_Woocommerce_Admin
     public function save_settings()
     {
         update_option( 'dipi_woocommerce_brand_id', $_POST['dipi_woocommerce_brand_id'] );
+        update_option( 'dipi_woocommerce_cname', $_POST['dipi_woocommerce_cname'] );
 
         wp_redirect('?page=wc-dipi');
         exit;
