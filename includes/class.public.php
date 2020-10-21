@@ -63,8 +63,7 @@ class Dipi_Woocommerce_Public
                 _dipi['order_currency'] = '".get_woocommerce_currency()."';
                 _dipi['voucher_code'] = '".$coupons."';
                 _dipi['new_customer'] = '".(count($customer_orders) > 0 ? 1 : 0)."';
-                (function() { var _dpp1 = document.createElement('iframe'); _dpp1.frameBorder = 0; _dpp1.style.height = 0; _dpp1.style.width = 0; _dpp1.src = '//$domain/t/px/$brand_id/?or='+_dipi['order_reference']+'&oa='+_dipi['order_amount']+'&oc='+_dipi['order_currency']+'&vc='+_dipi['voucher_code']+'&nc='+_dipi['new_customer']+'&c='+btoa(document.cookie); var _dpp2 = document.getElementsByTagName('script')[0]; _dpp2.parentNode.insertBefore(_dpp1, _dpp2);
-                })();
+                (function() { var _dpp1 = document.createElement('iframe'); _dpp1.frameBorder = 0; _dpp1.style.height = 0; _dpp1.style.width = 0; _dpp1.src = '//$domain/t/px/$brand_id/?or='+_dipi['order_reference']+'&oa='+_dipi['order_amount']+'&oc='+_dipi['order_currency']+'&vc='+_dipi['voucher_code']+'&nc='+_dipi['new_customer']+'&c='+btoa(document.cookie); var _dpp2 = document.getElementsByTagName('script')[0]; _dpp2.parentNode.insertBefore(_dpp1, _dpp2); })();
                 </script>
             ";
         }        
