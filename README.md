@@ -1,4 +1,4 @@
-# Dipi Woocommerce
+# Dipi WooCommerce
 Integrate your WooCommerce store with Dipi.io
 
 - Download code as zip and upload in Plugins > Add new > Upload plugin
