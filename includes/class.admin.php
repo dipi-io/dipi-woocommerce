@@ -30,6 +30,12 @@ class Dipi_Woocommerce_Admin
 
     public function settings_page()
     {
+        $coupon_url_key = get_option( 'dipi_woocommerce_coupon_url_key' );
+        if ( ! $coupon_url_key ) {
+            $coupon_url_key = sha1( uniqid() );
+            update_option( 'dipi_woocommerce_coupon_url_key', $coupon_url_key );
+        }
+
         require_once plugin_dir_path( __FILE__ ) . '../views/settings.php';
     }
 
@@ -37,15 +43,9 @@ class Dipi_Woocommerce_Admin
     {
         update_option( 'dipi_woocommerce_brand_id', $_POST['dipi_woocommerce_brand_id'] );
         update_option( 'dipi_woocommerce_cname', $_POST['dipi_woocommerce_cname'] );
+        update_option( 'dipi_woocommerce_coupon_token', $_POST['dipi_woocommerce_coupon_token'] );
 
         wp_redirect('?page=wc-dipi');
         exit;
-    }
-
-    public function shop_coupon_columns( $columns )
-    {
-        $columns['is_dipi'] = 'Dipi Coupon';
-
-        return $columns;
     }
 }

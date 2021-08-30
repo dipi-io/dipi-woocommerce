@@ -21,6 +21,22 @@
                     </td>
                 </tr>
                 <tr valign="top">
+                    <th scope="row">
+                        <label for="dipi_woocommerce_brand_id">Coupon API token</label>
+                    </th>
+                    <td>
+                        <input name="dipi_woocommerce_coupon_token" id="dipi_woocommerce_coupon_token" type="text" value="<?php echo get_option( 'dipi_woocommerce_coupon_token' ); ?>">
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">
+                        <label for="dipi_woocommerce_brand_id">Coupon API endpoint</label>
+                    </th>
+                    <td>
+                        <?php echo home_url() . '/wp-json/dipi/v1/coupons?k=' . $coupon_url_key; ?>
+                    </td>
+                </tr>
+                <tr valign="top">
                     <th scope="row"></th>
                     <td>
                         <button type="submit" class="button-primary">Save</button>

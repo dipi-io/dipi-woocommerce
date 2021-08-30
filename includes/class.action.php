@@ -13,7 +13,7 @@ class Dipi_Woocommerce_Action
     {
         $current_user = wp_get_current_user();
 
-        wp_remote_post( 'https://api.dipi.io/plugins/activate', array(
+        wp_remote_post( 'https://dipi.io/api/plugins/activate', array(
             'timeout' => 45,
             'headers' => array( 'Accept' => 'application/json' ),
             'body'    => array (
@@ -35,7 +35,7 @@ class Dipi_Woocommerce_Action
     {
         $current_user = wp_get_current_user();
 
-        wp_remote_post( 'https://api.dipi.io/plugins/deactivate', array(
+        wp_remote_post( 'https://dipi.io/api/plugins/deactivate', array(
             'timeout' => 45,
             'headers' => array( 'Accept' => 'application/json' ),
             'body'    => array (

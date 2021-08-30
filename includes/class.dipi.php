@@ -15,6 +15,7 @@ class Dipi_Woocommerce
     {
         $this->load_dependencies();
         $this->define_public_hooks();
+        $this->define_coupon_hooks();
 
         // Only to run in admin
         if ( is_admin() ) {
@@ -30,6 +31,7 @@ class Dipi_Woocommerce
         // Load classes
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.loader.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.public.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.coupons.php';
 
         // Only to run in admin
         if ( is_admin() ) {
@@ -72,5 +74,12 @@ class Dipi_Woocommerce
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_GET['action'] ) && $_GET['action'] == 'dipi-woocommerce-save-settings') {
             $this->loader->add_action( 'admin_init', $admin, 'save_settings' );
         }
+    }
+
+    private function define_coupon_hooks()
+    {
+        $coupons = new Dipi_Woocommerce_Coupons();
+
+        $this->loader->add_action( 'rest_api_init', $coupons, 'setup_api_routes' );
     }
 }
