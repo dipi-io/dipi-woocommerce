@@ -9,7 +9,7 @@
 
 class Dipi_Woocommerce_Coupons
 {
-    protected $base_url = 'https://dipi.io/api/v1/';
+    protected $base_url = 'https://dipi.io/api/v1/brand/';
 
     public function setup_api_routes()
     {
