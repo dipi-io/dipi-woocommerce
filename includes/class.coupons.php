@@ -58,9 +58,12 @@ class Dipi_Woocommerce_Coupons
     {
         $coupon = new WC_Coupon();
         $coupon->set_code( $code );
+        if ( $description = get_option( 'dipi_woocommerce_coupon_description' ) ) {
+            $coupon->set_description( $description );
+        }
         $coupon->set_discount_type( 'percent' );
         $coupon->set_amount( $data['coupon']['percent'] );
-        $coupon->set_date_expires( date( 'Y-m-d H:i:s', time() + ( 86400 * 365 * 5 ) ) );
+        $coupon->set_date_expires( date( 'Y-m-d H:i:s', time() + ( 86400 * get_option( 'dipi_woocommerce_coupon_expiry_days', 60 ) ) ) );
         $coupon->save();
 
         return $coupon;

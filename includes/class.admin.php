@@ -44,6 +44,8 @@ class Dipi_Woocommerce_Admin
         update_option( 'dipi_woocommerce_brand_id', $_POST['dipi_woocommerce_brand_id'] );
         update_option( 'dipi_woocommerce_cname', $_POST['dipi_woocommerce_cname'] );
         update_option( 'dipi_woocommerce_coupon_token', $_POST['dipi_woocommerce_coupon_token'] );
+        update_option( 'dipi_woocommerce_coupon_expiry_days', $_POST['dipi_woocommerce_coupon_expiry_days'] );
+        update_option( 'dipi_woocommerce_coupon_description', $_POST['dipi_woocommerce_coupon_description'] );
 
         wp_redirect('?page=wc-dipi');
         exit;
