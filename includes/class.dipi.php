@@ -14,7 +14,7 @@ class Dipi_Woocommerce
     public function run()
     {
         $this->load_dependencies();
-        $this->define_public_hooks();
+        $this->define_tracking_hooks();
         $this->define_coupon_hooks();
 
         // Only to run in admin
@@ -30,7 +30,7 @@ class Dipi_Woocommerce
     {
         // Load classes
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.loader.php';
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.public.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.tracking.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.coupons.php';
 
         // Only to run in admin
@@ -53,12 +53,15 @@ class Dipi_Woocommerce
         $this->loader->add_action( 'upgrader_process_complete', $update, 'clear_plugin_cache', 10, 2 );
     }
 
-    private function define_public_hooks()
+    private function define_tracking_hooks()
     {
-        $public = new Dipi_Woocommerce_Public;
+        $tracking = new Dipi_Woocommerce_Tracking;
 
-        $this->loader->add_action( 'wp_footer', $public, 'woocommerce_page_view' );
-        $this->loader->add_action( 'woocommerce_thankyou', $public, 'woocommerce_thankyou' );
+        // Only trigger the s2s pixel if it's a click from Dipi.
+        if ( isset( $_GET ) && isset( $_GET['dipi'] ) ) {
+            $this->loader->add_action( 'init', $tracking, 'click' );
+        }
+        $this->loader->add_action( 'woocommerce_thankyou', $tracking, 'sale' );
     }
 
     private function define_admin_hooks()

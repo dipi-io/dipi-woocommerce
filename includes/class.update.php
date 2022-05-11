@@ -16,12 +16,12 @@ class Dipi_Woocommerce_Update
     {
         $transient = null;
         if ( ! $remote = get_transient( 'dipi_woocommerce_update' ) ) {
-            $remote = wp_remote_get( 'https://api.dipi.io/plugins/wp/woocommerce', array(
+            $remote = wp_remote_get( 'https://dipi.io/api/plugins/wp/woocommerce', array(
                 'timeout' => 10,
                 'headers' => array( 'Accept' => 'application/json' )
             ) );
-            if ( ! is_wp_error( $remote ) && isset( $remote['response']['code'] ) && $remote['response']['code'] == 200 ) {
-                set_transient( 'dipi_woocommerce_update', $remote, 3600 );
+            if ( ! is_wp_error( $remote ) && isset( $remote['response']['code'] ) && esc_attr( $remote['response']['code'] ) == 200 ) {
+                set_transient( 'dipi_woocommerce_update', esc_attr( $remote ), 3600 );
             }
 
             if ( ! is_wp_error( $remote ) && isset( $remote['response']['code'] ) && $remote['response']['code'] == 200 ) {
@@ -30,11 +30,11 @@ class Dipi_Woocommerce_Update
                     $plugin = 'dipi-woocommerce/dipi-woocommerce.php';
                     $transient->response[$plugin] = (object) array(
                         'slug' => 'dipi-woocommerce',
-                        'plugin' => $plugin,
-                        'new_version' => $remote->version,
-                        'tested' => $remote->tested,
-                        'package' => $remote->package,
-                        'url' => $remote->url,
+                        'plugin' => esc_attr( $plugin ),
+                        'new_version' => esc_attr( $remote->version ),
+                        'tested' => esc_attr( $remote->tested ),
+                        'package' => esc_attr( $remote->package ),
+                        'url' => esc_attr( $remote->url ),
                     );
                 }
             }

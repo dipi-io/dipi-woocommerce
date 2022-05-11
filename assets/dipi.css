@@ -8,3 +8,14 @@
     font-size: 11px;
     padding: 5px;
 }
+.dipi-woocommerce .row {
+    display: flex;
+}
+.dipi-woocommerce .col {
+    flex: 1;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+.dipi-woocommerce .dipi-widget {
+    max-width: 400px;
+}

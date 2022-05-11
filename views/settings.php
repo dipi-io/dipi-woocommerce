@@ -1,65 +1,130 @@
 <div class="wrap dipi-woocommerce">
     <h2>Dipi WooCommerce Settings</h2>
-    <form method="post" action="?action=dipi-woocommerce-save-settings">
-        <table class="form-table">
-            <tbody>
-                <tr valign="top">
-                    <th scope="row">
-                        <label for="dipi_woocommerce_brand_id">Dipi Brand ID</label>
-                    </th>
-                    <td>
-                        <input name="dipi_woocommerce_brand_id" id="dipi_woocommerce_brand_id" type="number" value="<?php echo get_option( 'dipi_woocommerce_brand_id' ); ?>">
-                    </td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row">
-                        <label for="dipi_woocommerce_cname">CNAME</label>
-                    </th>
-                    <td>
-                        <input name="dipi_woocommerce_cname" id="dipi_woocommerce_cname" type="text" value="<?php echo get_option( 'dipi_woocommerce_cname' ); ?>">
-                        <p>Leave empty if this you do not have any custom domain connected to dipi.</p>
-                    </td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row">
-                        <label for="dipi_woocommerce_coupon_token">Coupon API token</label>
-                    </th>
-                    <td>
-                        <input name="dipi_woocommerce_coupon_token" id="dipi_woocommerce_coupon_token" type="text" value="<?php echo get_option( 'dipi_woocommerce_coupon_token' ); ?>">
-                    </td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row">
-                        <label for="dipi_woocommerce_coupon_expiry_days">Coupon Expiry Days</label>
-                    </th>
-                    <td>
-                        <input name="dipi_woocommerce_coupon_expiry_days" id="dipi_woocommerce_coupon_expiry_days" type="number" value="<?php echo get_option( 'dipi_woocommerce_coupon_expiry_days', 60 ); ?>">
-                        Days
-                    </td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row">
-                        <label for="dipi_woocommerce_coupon_description">Coupon Description</label>
-                    </th>
-                    <td>
-                        <input name="dipi_woocommerce_coupon_description" id="dipi_woocommerce_coupon_description" type="text" value="<?php echo get_option( 'dipi_woocommerce_coupon_description' ); ?>">
-                    </td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row">
-                        <label>Coupon API endpoint</label>
-                    </th>
-                    <td>
-                        <?php echo home_url() . '/wp-json/dipi/v1/coupons?k=' . $coupon_url_key; ?>
-                    </td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row"></th>
-                    <td>
-                        <button type="submit" class="button-primary">Save</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
+    <div class="row">
+        <div class="col">
+            <form method="post" action="?action=dipi-woocommerce-save-settings">
+                <table class="form-table">
+                    <tbody>
+                        <tr valign="top">
+                            <th scope="row" colspan="2">
+                                <h2>Tracking settings</h2>
+                            </th>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">
+                                <label for="dipi_woocommerce_brand_id">Dipi Brand ID</label>
+                            </th>
+                            <td>
+                                <input name="dipi_woocommerce_brand_id" id="dipi_woocommerce_brand_id" type="number" value="<?php echo esc_attr( get_option( 'dipi_woocommerce_brand_id' ) ); ?>">
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">
+                                <label for="dipi_woocommerce_brand_id">Tracking token</label>
+                            </th>
+                            <td>
+                                <input name="dipi_woocommerce_tracking_token" id="dipi_woocommerce_tracking_token" type="text" value="<?php echo esc_attr( get_option( 'dipi_woocommerce_tracking_token' ) ); ?>">
+                                <p class="help-text">Get your tracking token from Dipi.io > Client admin > Api & Integration</p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row" colspan="2">
+                                <h2>Coupon settings</h2>
+                            </th>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">
+                                <label for="dipi_woocommerce_coupon_token">Coupon API token</label>
+                            </th>
+                            <td>
+                                <input name="dipi_woocommerce_coupon_token" id="dipi_woocommerce_coupon_token" type="text" value="<?php echo esc_attr( get_option( 'dipi_woocommerce_coupon_token' ) ); ?>">
+                                <p class="help-text">Get your Coupon API token from Dipi.io > Client admin > Api & Integration</p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">
+                                <label for="dipi_woocommerce_coupon_expiry_days">Coupon Expiry Days</label>
+                            </th>
+                            <td>
+                                <input name="dipi_woocommerce_coupon_expiry_days" id="dipi_woocommerce_coupon_expiry_days" type="number" value="<?php echo esc_attr( get_option( 'dipi_woocommerce_coupon_expiry_days', 60 ) ); ?>">
+                                Days
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">
+                                <label for="dipi_woocommerce_coupon_description">Coupon Description</label>
+                            </th>
+                            <td>
+                                <input name="dipi_woocommerce_coupon_description" id="dipi_woocommerce_coupon_description" type="text" value="<?php echo esc_attr( get_option( 'dipi_woocommerce_coupon_description' ) ); ?>">
+                                <p class="help-text">This makes it easier for you to separate codes generated by Dipi in the discount code list in WooCommerce</p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">
+                                <label>Coupon API endpoint</label>
+                            </th>
+                            <td>
+                                <input type="text" value="<?php echo home_url() . '/wp-json/dipi/v1/coupons?k=' . $coupon_url_key; ?>" onclick="this.select()" readonly="true">
+                                <p class="help-text">This is to be added to Dipi.io > Client admin > Api & Integration</p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row" colspan="2">
+                                <h2>Widget settings</h2>
+                            </th>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">
+                                <label for="dipi_woocommerce_coupon_expiry_days">Widget language</label>
+                            </th>
+                            <td>
+                                <select name="dipi_woocommerce_widget_language">
+                                    <option value="en" <?php echo esc_attr( get_option( 'dipi_woocommerce_widget_language', 'en' ) ) == 'en' ? 'selected' : null; ?>>English</option>
+                                    <option value="sv" <?php echo esc_attr( get_option( 'dipi_woocommerce_widget_language', 'en' ) ) == 'sv' ? 'selected' : null; ?>>Swedish</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">
+                                <label for="dipi_woocommerce_coupon_expiry_days">Widget button color</label>
+                            </th>
+                            <td>
+                                <input type="color" name="dipi_woocommerce_widget_button_color" value="<?php echo esc_attr( get_option( 'dipi_woocommerce_widget_button_color', '#000000' ) ); ?>">
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">
+                                <label for="dipi_woocommerce_coupon_expiry_days">Widget text color</label>
+                            </th>
+                            <td>
+                                <input type="color" name="dipi_woocommerce_widget_text_color" value="<?php echo esc_attr( get_option( 'dipi_woocommerce_widget_text_color', '#ffffff' ) ); ?>">
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">
+                                <label>Shortcode for widget</label>
+                            </th>
+                            <td>
+                                <input type="text" value='[dipi_widget language="<?php echo esc_attr( get_option( 'dipi_woocommerce_widget_language', 'en' ) ); ?>" button="<?php echo esc_attr( get_option( 'dipi_woocommerce_widget_button_color', '#000000' ) ); ?>" text="<?php echo esc_attr( get_option( 'dipi_woocommerce_widget_text_color', '#ffffff' ) ); ?>"]' onclick="this.select()" readonly="true">
+                                <p class="help-text">Copy and paste this anywhere you want to show the widget</p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"></th>
+                            <td>
+                                <button type="submit" class="button-primary">Save</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <div class="col">
+            <div class="dipi-widget">
+                <h2>Preview widget</h2>
+                <p>Let your visitors sign up and start collaborating with you right away. Just add this widget anywhere in your store.</p>
+                <iframe src="https://dipi.io/widgets/register/3?button_background_color=<?php echo esc_attr( str_replace( '#', null, get_option( 'dipi_woocommerce_widget_button_color', '#000000' ) ) ); ?>&button_text_color=<?php echo esc_attr( str_replace( '#', null, get_option( 'dipi_woocommerce_widget_text_color', '#ffffff' ) ) ); ?>&language=<?php echo esc_attr( get_option( 'dipi_woocommerce_widget_language', 'en' ) ); ?>" frameborder="0" style="width:100%;max-width:400px;height:485px;"></iframe>
+            </div>
+        </div>
+    </div>
 </div>

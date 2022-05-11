@@ -15,22 +15,22 @@ class Dipi_Woocommerce_Coupons
     {
         register_rest_route( 'dipi/v1', 'coupons', [
             'methods' => 'POST',
-            'callback' => [$this, 'create_coupon']
+            'callback' => array( $this, 'create_coupon' )
         ] );
     }
 
     public function create_coupon( WP_REST_Request $request )
     {
-        if ( ! $_GET['k'] || $_GET['k'] != get_option( 'dipi_woocommerce_coupon_url_key') ) {
+        if ( ! $_GET['k'] || $_GET['k'] != esc_attr( get_option( 'dipi_woocommerce_coupon_url_key') ) ) {
             return new WP_REST_Response( 'Unauthenticated', 401 );
         }
 
         $data = $request->get_json_params();
 
-        $codes = [
-            $data['coupon']['primary'],
-            $data['coupon']['secondary'],
-        ];
+        $codes = array(
+            esc_attr( $data['coupon']['primary'] ),
+            esc_attr( $data['coupon']['secondary'] ),
+        );
 
         foreach ( $codes as $code ) {
             if ( $this->check_code_availability( $code ) ) {
@@ -57,13 +57,13 @@ class Dipi_Woocommerce_Coupons
     public function create_coupon_code( $data, $code )
     {
         $coupon = new WC_Coupon();
-        $coupon->set_code( $code );
-        if ( $description = get_option( 'dipi_woocommerce_coupon_description' ) ) {
+        $coupon->set_code( esc_attr( $code ) );
+        if ( $description = esc_attr( get_option( 'dipi_woocommerce_coupon_description' ) ) ) {
             $coupon->set_description( $description );
         }
         $coupon->set_discount_type( 'percent' );
-        $coupon->set_amount( $data['coupon']['percent'] );
-        $coupon->set_date_expires( date( 'Y-m-d H:i:s', time() + ( 86400 * get_option( 'dipi_woocommerce_coupon_expiry_days', 60 ) ) ) );
+        $coupon->set_amount( esc_attr( $data['coupon']['percent'] ) );
+        $coupon->set_date_expires( date( 'Y-m-d H:i:s', time() + ( 86400 * esc_attr( get_option( 'dipi_woocommerce_coupon_expiry_days', 60 ) ) ) ) );
         $coupon->save();
 
         return $coupon;
@@ -89,11 +89,11 @@ class Dipi_Woocommerce_Coupons
                 'coupon_valid_from' => date( 'Y-m-d H:i:s' ),
                 'coupon_valid_to' => $coupon->get_date_expires()->format( 'Y-m-d H:i:s' ),
             ] ),
-            'headers' => [
+            'headers' => array(
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . get_option( 'dipi_woocommerce_coupon_token' )
-            ]
+                'Authorization' => 'Bearer ' . esc_attr( get_option( 'dipi_woocommerce_coupon_token' ) )
+            )
         ] );
 
         return new WP_REST_Response( json_decode( wp_remote_retrieve_body( $response ), true ), 200 );
