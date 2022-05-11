@@ -10,7 +10,7 @@
 class Dipi_Woocommerce_Tracking
 {
     protected $brand_id;
-    protected $base_url = 'https://dipi.test/t/s2s/';
+    protected $base_url = 'https://dipi.io/t/s2s/';
 
     public function __construct()
     {
