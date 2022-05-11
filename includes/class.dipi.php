@@ -16,6 +16,7 @@ class Dipi_Woocommerce
         $this->load_dependencies();
         $this->define_tracking_hooks();
         $this->define_coupon_hooks();
+        $this->define_widget_hooks();
 
         // Only to run in admin
         if ( is_admin() ) {
@@ -32,6 +33,7 @@ class Dipi_Woocommerce
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.loader.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.tracking.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.coupons.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.widget.php';
 
         // Only to run in admin
         if ( is_admin() ) {
@@ -62,6 +64,13 @@ class Dipi_Woocommerce
             $this->loader->add_action( 'init', $tracking, 'click' );
         }
         $this->loader->add_action( 'woocommerce_thankyou', $tracking, 'sale' );
+    }
+
+    private function define_widget_hooks()
+    {
+        $widget = new Dipi_Woocommerce_Widget;
+
+        $this->loader->add_action( 'init', $widget, 'add_shortcodes' );
     }
 
     private function define_admin_hooks()

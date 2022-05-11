@@ -27,8 +27,12 @@ class Dipi_Woocommerce_Tracking
     public function click()
     {
         try {
+            $cookie_id = '';
             if ( ! isset( $_COOKIE['dp_' . $this->brand_id] ) ) {
-                setcookie( 'dp_' . $this->brand_id, md5( uniqid() ), time() + ( 86400 * 30 ), '/' );
+                $cookie_id = md5( uniqid() );
+                setcookie( 'dp_' . $this->brand_id, $cookie_id, time() + ( 86400 * 30 ), '/' );
+            } else {
+                $cookie_id = $_COOKIE['dp_' . $this->brand_id];
             }
             wp_remote_post( $this->base_url . 'click/' . $this->brand_id, array(
                 'method' => 'POST',
@@ -37,7 +41,7 @@ class Dipi_Woocommerce_Tracking
                     'dipi' => esc_attr( $_GET['dipi'] ),
                     'ip_address' => esc_attr( $_SERVER['REMOTE_ADDR'] ),
                     'user_agent' => esc_attr( $_SERVER['HTTP_USER_AGENT'] ),
-                    'cookie' => isset( $_COOKIE['dp_' . $this->brand_id] ) ? $_COOKIE['dp_' . $this->brand_id] : null,
+                    'cookie' => $cookie_id,
                 )
             ) );
         } catch ( Exception $e ) {
@@ -72,7 +76,7 @@ class Dipi_Woocommerce_Tracking
                         'currency' => get_woocommerce_currency(),
                         'reference' => $order_id,
                         'discount_code' => $coupons,
-                        'cookie' => isset( $_COOKIE['dp_' . $this->brand_id] ) ? $_COOKIE['dp_' . $this->brand_id] : null,
+                        'cookie' => isset( $_COOKIE['dp_' . $this->brand_id] ) ? $_COOKIE['dp_' . $this->brand_id] : '',
                         'ip_address' => esc_attr( $_SERVER['REMOTE_ADDR'] ),
                         'user_agent' => esc_attr( $_SERVER['HTTP_USER_AGENT'] ),
                         'new_customer' => ( count( $customer_orders ) == 0 ) ? 1 : 0,
