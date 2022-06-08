@@ -8,7 +8,7 @@
  * Plugin Name:       Dipi Woocommerce
  * Description:       Connect your store with Dipi. This plugin installs the server 2 server pixels and connects your store to the Dipi Coupon API.
  * Author:            Dipi AB
- * Version:           2.0.0
+ * Version:           2.1.0
  * Author URI:        https://dipi.io
  * Plugin URI:        https://dipi.io
  */
@@ -23,7 +23,17 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Check if Woocommerce is active
  */
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+
+$woocommerce_active = false;
+if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+	require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+}
+if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ ) ) ) {
+    $woocommerce_active = is_plugin_active_for_network('woocommerce/woocommerce.php'); 
+} else {
+	$woocommerce_active = is_plugin_active( 'woocommerce/woocommerce.php');
+}
+if ( $woocommerce_active ) {
 	/**
 	 * Plugin version.
 	 */

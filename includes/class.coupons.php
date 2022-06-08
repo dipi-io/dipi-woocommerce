@@ -49,9 +49,9 @@ class Dipi_Woocommerce_Coupons
 
     public function check_code_availability( $code )
     {
-        $coupon = new WC_Coupon( $code );
+        $coupon_id = wc_get_coupon_id_by_code( $code );
 
-        return get_post( $coupon->id ) ? false : true;
+        return get_post( $coupon_id ) ? false : true;
     }
 
     public function create_coupon_code( $data, $code )
