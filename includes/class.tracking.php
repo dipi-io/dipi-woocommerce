@@ -46,29 +46,29 @@ class Dipi_Woocommerce_Tracking
                 )
             ) );
         } catch ( Exception $e ) {
-            // Do nothing
+            error_log( $e->getMessage() );
         }
     }
 
     public function sale( $order_id )
     {
         if ( $order_id && $this->brand_id ) {
-            $order = wc_get_order( $order_id );
-            $coupons = null;
-            if ( count( $order->get_coupon_codes() ) > 0 ) {
-                $coupons = implode( ',', $order->get_coupon_codes() );
-            }
-
-            $customer_orders = get_posts( array(
-                'numberposts' => 1,
-                'meta_key'    => '_customer_user',
-                'meta_value'  => get_current_user_id(),
-                'post_type'   => 'shop_order',
-                'post_status' => 'wc-completed',
-                'fields'      => 'ids',
-            ) );
-
             try {
+                $order = wc_get_order( $order_id );
+                $coupons = null;
+                if ( count( $order->get_coupon_codes() ) > 0 ) {
+                    $coupons = implode( ',', $order->get_coupon_codes() );
+                }
+
+                $customer_orders = get_posts( array(
+                    'numberposts' => 1,
+                    'meta_key' => '_customer_user',
+                    'meta_value' => get_current_user_id(),
+                    'post_type' => 'shop_order',
+                    'post_status' => 'all',
+                    'fields' => 'ids',
+                ) );
+
                 wp_remote_post( $this->base_url . 'sale/' . $this->brand_id, array(
                     'method' => 'POST',
                     'body' => array(
@@ -80,11 +80,11 @@ class Dipi_Woocommerce_Tracking
                         'cookie' => isset( $_COOKIE['dp_' . $this->brand_id] ) ? $_COOKIE['dp_' . $this->brand_id] : '',
                         'ip_address' => esc_attr( $_SERVER['REMOTE_ADDR'] ),
                         'user_agent' => esc_attr( $_SERVER['HTTP_USER_AGENT'] ),
-                        'new_customer' => ( count( $customer_orders ) == 0 ) ? 1 : 0,
+                        'new_customer' => ( count( $customer_orders ) > 0 ) ? 0 : 1,
                     )
                 ) );
             } catch ( Exception $e ) {
-                // Do nothing
+                error_log( $e->getMessage() );
             }
         }        
     }

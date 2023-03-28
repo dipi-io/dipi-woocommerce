@@ -63,7 +63,7 @@ class Dipi_Woocommerce
         if ( isset( $_GET ) && isset( $_GET['dipi'] ) ) {
             $this->loader->add_action( 'init', $tracking, 'click' );
         }
-        $this->loader->add_action( 'woocommerce_thankyou', $tracking, 'sale' );
+        $this->loader->add_action( 'woocommerce_thankyou', $tracking, 'sale', 1 );
     }
 
     private function define_widget_hooks()
