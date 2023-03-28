@@ -10,7 +10,8 @@
 class Dipi_Woocommerce_Tracking
 {
     protected $brand_id;
-    protected $base_url = 'https://dipi.io/t/s2s/';
+    protected $tracking_token;
+    protected $base_url = 'https://dipi.test/t/s2s/';
 
     public function __construct()
     {
@@ -54,8 +55,8 @@ class Dipi_Woocommerce_Tracking
         if ( $order_id && $this->brand_id ) {
             $order = wc_get_order( $order_id );
             $coupons = null;
-            if ( count( $order->get_used_coupons() ) > 0 ) {
-                $coupons = implode( ',', $order->get_used_coupons() );
+            if ( count( $order->get_coupon_codes() ) > 0 ) {
+                $coupons = implode( ',', $order->get_coupon_codes() );
             }
 
             $customer_orders = get_posts( array(
