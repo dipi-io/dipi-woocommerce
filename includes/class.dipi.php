@@ -20,7 +20,6 @@ class Dipi_Woocommerce
 
         // Only to run in admin
         if ( is_admin() ) {
-            $this->update_check();
             $this->define_admin_hooks();
         }
 
@@ -44,15 +43,6 @@ class Dipi_Woocommerce
         }
 
         $this->loader = new Dipi_Woocommerce_Loader();
-    }
-
-    private function update_check()
-    {
-        $update = new Dipi_Woocommerce_Update();
-
-        $this->loader->add_filter( 'site_transient_update_plugins', $update, 'check_for_new_version', 10, 1 );
-        $this->loader->add_filter( 'plugins_api', $update, 'display_plugin_information', 20, 3 );
-        $this->loader->add_action( 'upgrader_process_complete', $update, 'clear_plugin_cache', 10, 2 );
     }
 
     private function define_tracking_hooks()

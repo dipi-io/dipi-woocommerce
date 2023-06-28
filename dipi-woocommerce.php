@@ -8,7 +8,7 @@
  * Plugin Name:       Dipi Woocommerce
  * Description:       Connect your store with Dipi. This plugin installs the server 2 server pixels and connects your store to the Dipi Coupon API.
  * Author:            Dipi AB
- * Version:           2.1.0
+ * Version:           2.1.1
  * Author URI:        https://dipi.io
  * Plugin URI:        https://dipi.io
  */
