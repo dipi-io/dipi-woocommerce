@@ -38,7 +38,6 @@ class Dipi_Woocommerce
         if ( is_admin() ) {
             
             // Admin classes
-            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.update.php';
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class.admin.php';
         }
 
